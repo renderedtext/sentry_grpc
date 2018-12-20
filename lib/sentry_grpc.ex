@@ -42,6 +42,9 @@ defmodule Sentry.Grpc do
   def capture(fun) do
     fun.()
   rescue
+    e in GRPC.RPCError ->
+      Kernel.reraise(e, __STACKTRACE__)
+
     e ->
       Sentry.capture_exception(e, [
         stacktrace: __STACKTRACE__,
