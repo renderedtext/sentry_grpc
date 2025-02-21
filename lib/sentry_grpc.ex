@@ -17,7 +17,7 @@ defmodule Sentry.Grpc do
 
     if service do
       service.__rpc_calls__()
-      |> Enum.map(fn{fname_camel_atom, _, _} ->
+      |> Enum.map(fn{fname_camel_atom, _, _, _} ->
         fname_snake = snake_case(fname_camel_atom)
 
         quote do
